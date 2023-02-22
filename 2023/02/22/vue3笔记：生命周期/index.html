@@ -9,7 +9,7 @@
     
     <title>
         
-            vue3笔记-指令:v-if,v-show,v-for |
+            vue3笔记：生命周期 |
         
         lsyana&#39;s blog
     </title>
@@ -135,7 +135,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">vue3笔记-指令:v-if,v-show,v-for</span>
+                <span class="title-hover-animation">vue3笔记：生命周期</span>
             </div>
 
             
@@ -157,13 +157,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-02-22 00:35:56</span>
-        <span class="mobile">2023-02-22 00:35</span>
+        <span class="pc">2023-02-22 23:45:45</span>
+        <span class="mobile">2023-02-22 23:45</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-02-22 00:36:50</span>
+        <span class="pc">2023-02-22 23:46:02</span>
     </span>
     
     
@@ -194,34 +194,40 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="v-if-v-show-v-for"><a href="#v-if-v-show-v-for" class="headerlink" title="v-if v-show v-for"></a><code>v-if v-show v-for</code></h1><h2 id="控制页面内容展示和隐藏"><a href="#控制页面内容展示和隐藏" class="headerlink" title="控制页面内容展示和隐藏"></a>控制页面内容展示和隐藏</h2><ol>
-<li><code>v-if</code></li>
+                <h1 id="vue3笔记：生命周期"><a href="#vue3笔记：生命周期" class="headerlink" title="vue3笔记：生命周期"></a>vue3笔记：生命周期</h1><p>每一个<code>.vue</code>文件都是一个组件，都有自己的生命周期钩子。</p>
+<h2 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h2><p>生产环境可用的10个钩子：</p>
+<ol>
+<li>onBeforeMount 组件被挂载之前调用</li>
+<li>onMounted 组件挂载完成后调用</li>
+<li>onBeforeUpdate 组件即将因为响应式状态变更而更新其 DOM 树之前调用</li>
+<li>onUpdated 组件因为响应式状态变更而更新其 DOM 树之后调用</li>
+<li>onBeforeUnmount 组件实例被卸载之前调用</li>
+<li>onUnmounted 组件实例被卸载之后调用</li>
+<li>onActivated  <code>&lt;KeepAlive&gt;</code>组件被插入到 DOM 中时调用</li>
+<li>onDeactivated  <code>&lt;KeepAlive&gt;</code>组件从 DOM 中被移除时调用</li>
+<li>onErrorCaptured 捕获了后代组件传递的错误时调用</li>
+<li>onServerPrefetch 组件实例在服务器上被渲染之前调用（只能在SSR中用）</li>
 </ol>
-<ul>
-<li><code>v-if</code> 是“真实的”按条件渲染，因为它确保了在切换时，条件区块内的事件监听器和子组件都会被销毁与重建。</li>
-<li><code>v-if</code> 也是惰性的：如果在初次渲染时条件值为 false，则不会做任何事。条件区块只有当条件首次变为 true 时才被渲染。</li>
-<li>如果在运行时绑定条件很少改变，用<code>v-if</code>。</li>
-</ul>
-<ol start="2">
-<li><code>v-show</code></li>
+<p>只能在开发环境中使用的2个钩子：</p>
+<ol>
+<li>onRenderTracked 调试钩子，当组件渲染过程中追踪到响应式依赖时调用</li>
+<li>onRenderTriggered 调试钩子，当响应式依赖的变更触发了组件渲染时调用</li>
 </ol>
-<ul>
-<li><code>v-show</code> 元素无论初始条件如何，始终会被渲染，只有 CSS display 属性会被切换。</li>
-<li>通过控制元素的display属性来控制页面内容的展示隐藏，初始渲染开销大，频繁切换的可以用它。</li>
-<li><code>v-show</code> 不支持在 <code>&lt;template&gt;</code> 元素上使用，也不能和 <code>v-else</code> 搭配使用。</li>
-</ul>
-<h2 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h2><ol>
-<li>要有一个唯一的<code>key</code>，以便它可以跟踪每个节点的标识，从而重用和重新排序现有的元素。</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- items 数组 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">&quot;item in items&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 内容 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- myObject 对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(value, key, index) in myObject&quot;</span>&gt;</span></span><br><span class="line">  &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125;: &#123;&#123; value &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>不要使用对象做<code>key</code>（预期值<code>number | string | symbol</code>）</p>
-</li>
-<li><p><code>:key</code>和<code>v-for</code>写在同一标签上</p>
-</li>
-</ol>
-<h2 id="v-for和v-if"><a href="#v-for和v-if" class="headerlink" title="v-for和v-if"></a><code>v-for</code>和<code>v-if</code></h2><p>当它们同时存在于一个节点上时，v-if 比 v-for 的优先级更高。这意味着 v-if 的条件将无法访问到 v-for 作用域内定义的变量别名：</p>
+<h2 id="父子组件各个阶段生命周期执行顺序"><a href="#父子组件各个阶段生命周期执行顺序" class="headerlink" title="父子组件各个阶段生命周期执行顺序"></a>父子组件各个阶段生命周期执行顺序</h2><p>子组件是父组件的一部分，组件运行每个阶段中，父组件执行<code>onBefore[...]</code>之后，相关子组件执行完对应阶段的钩子<code>onBefore[...]</code>，<code>on[...]ed</code>，父组件再执行对应阶段结束钩子<code>on[...]ed</code>。</p>
+<p>其中，使用<code>KeepAlive</code>包裹的子组件，卸载时只执行<code>onDeactivated</code>，初始挂载和重新挂载都会执行<code>onActivated</code>（子组件初始挂载会全部执行一遍挂载的钩子，重新挂载只执行<code>onActivated</code>）。</p>
+<p>对子组件使用<code>KeepAlive</code>时，子组件的子组件们也会注册和执行相关的<code>onActivated</code>和<code>onDeactivated</code>。</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/built-ins/keep-alive.html" >KeepAlive传送门<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="挂载阶段（父子组件）"><a href="#挂载阶段（父子组件）" class="headerlink" title="挂载阶段（父子组件）"></a>挂载阶段（父子组件）</h3><p>1、挂载父子组件<br>父组件onBeforeMount —&gt; 子组件onBeforeMount —&gt; 子组件onMounted —&gt; 子组件onActivated(KeepAlive包裹的子组件) —&gt; 父组件onMounted</p>
+<p>2、只挂载子组件（🌰：父组件状态条件渲染子组件）<br>父组件onBeforeUpdate —&gt; 子组件onBeforeMount —&gt; 子组件onMounted —&gt; 父组件onUpdated</p>
+<p>3、只重新挂载使用<code>KeepAlive</code>的子组件<br>父组件onBeforeUpdate —&gt; 子组件onActivated —&gt; 父组件onUpdated</p>
+<h3 id="更新阶段"><a href="#更新阶段" class="headerlink" title="更新阶段"></a>更新阶段</h3><p>1、只更新父组件的状态<br>父组件onBeforeUpdate —&gt; 父组件onUpdated</p>
+<p>2、只更新子组件的状态<br>子组件onBeforeUpdate —&gt; 子组件onUpdated</p>
+<p>3、更新了父子组件共用的状态<br>父组件onBeforeUpdate —&gt; 子组件onBeforeUpdate —&gt; 子组onUpdated —&gt; 父组件onUpdated</p>
+<h3 id="子组件卸载阶段（🌰-条件式卸载子组件）"><a href="#子组件卸载阶段（🌰-条件式卸载子组件）" class="headerlink" title="子组件卸载阶段（🌰 条件式卸载子组件）"></a>子组件卸载阶段（🌰 条件式卸载子组件）</h3><p>1、卸载不使用<code>KeepAlive</code>的子组件<br>父组件onBeforeUpdate —&gt; 子组件onBeforeUnmount —&gt; 子组onUnmounted —&gt; 父组件onUpdated</p>
+<p>2、卸载使用了<code>KeepAlive</code>的子组件<br>父组件onBeforeUpdate —&gt; 子组件onDeactivated —&gt; 父组件onUpdated</p>
+<h3 id="父组件卸载阶段"><a href="#父组件卸载阶段" class="headerlink" title="父组件卸载阶段"></a>父组件卸载阶段</h3><p>1、不使用<code>KeepAlive</code><br>父组件onBeforeUnmount —&gt; 子组件onBeforeUnmount —&gt; 子组件onUnmounted —&gt; 父组件onUnmounted</p>
+<p>2、只子组件用了<code>KeepAlive</code><br>父组件onBeforeUnmount —&gt; 子组件onBeforeUnmount —&gt; 子组件onUnmounted —&gt; 子组件onActivated —&gt; 父组件onUnmounted</p>
+<p>3、父子组件都用了<code>KeepAlive</code><br>子组件onDeactivated —&gt; 父组件 —&gt; onDeactivated</p>
 
             </div>
 
@@ -240,29 +246,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2023/02/22/vue3%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item">vue3笔记：生命周期</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/02/22/vue3%E7%AC%94%E8%AE%B0-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/"
+                               href="/2023/02/22/vue3%E7%AC%94%E8%AE%B0-%E6%8C%87%E4%BB%A4-v-if-v-show-v-for/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">vue3笔记-计算属性</span>
+                                <span class="post-nav-title-item">vue3笔记-指令:v-if,v-show,v-for</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
