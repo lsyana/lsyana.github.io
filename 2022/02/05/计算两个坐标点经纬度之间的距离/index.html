@@ -9,7 +9,7 @@
     
     <title>
         
-            模块化 |
+            计算两个坐标点经纬度之间的距离 |
         
         lsyana&#39;s blog
     </title>
@@ -135,7 +135,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">模块化</span>
+                <span class="title-hover-animation">计算两个坐标点经纬度之间的距离</span>
             </div>
 
             
@@ -157,13 +157,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2021-02-03 23:03:31</span>
-        <span class="mobile">2021-02-03 23:03</span>
+        <span class="pc">2022-02-05 21:22:37</span>
+        <span class="mobile">2022-02-05 21:22</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-02-01 22:00:35</span>
+        <span class="pc">2023-02-26 23:23:52</span>
     </span>
     
     
@@ -173,7 +173,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">模块化</a>&nbsp;
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -194,38 +194,8 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><p>早期时候， 当应用变大时候，因为前端模块系统js文件的维护会越来越麻烦，因为前端不像后台开发一样，可以将代码结构分模块编写，一方面能够提高代码的利用率，另一方面有利于提高代码的可读性。<br>后面Dyan Dahl创造node,js 可以运行在服务器端的一门es扩展语言</p>
-<img src="./image-20221102153543086.png" alt="image-20221102153543086" style="zoom:100%;float:left;" />
-
-<p>由图可知，node.js就是es再加上其它模块系统组合而成，node.js制定了模块机制common.js规范，从次es就有了自己的模块系统</p>
-<h2 id="一、common-js"><a href="#一、common-js" class="headerlink" title="一、common.js"></a>一、common.js</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/nodejs/module.html"><strong>http://javascript.ruanyifeng.com/nodejs/module.html</strong></a></p>
-</blockquote>
-<h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// math.js</span></span><br><span class="line"><span class="keyword">export</span>.<span class="property">add</span> = <span class="keyword">function</span> (<span class="params">item1, item2</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> item1 + item2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span>.<span class="property">delete</span> = <span class="keyword">function</span> (<span class="params">item1, item2</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> item1 - item2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、引用"><a href="#2、引用" class="headerlink" title="2、引用"></a>2、引用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如：</span></span><br><span class="line"><span class="keyword">var</span> math = <span class="title function_">requite</span>(<span class="string">&#x27;math&#x27;</span>)</span><br><span class="line"><span class="comment">// 调用：</span></span><br><span class="line">math.<span class="title function_">add</span>(<span class="number">2</span>, <span class="number">3</span>); </span><br><span class="line">math.<span class="title function_">delete</span>(<span class="number">3</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-
-<img src="./image-20221103194232073.png" alt="image-20221103194232073" style="zoom:100%;float:left;" />
-
-<h2 id="二、-AMD"><a href="#二、-AMD" class="headerlink" title="二、 AMD"></a>二、 AMD</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="http://requirejs.org/"><strong>http://requirejs.org/</strong></a></p>
-</blockquote>
-<p>common.js模块系统是给node.js制定的，它是同步的，当在前端直接引用这模块系统实现前端模块化时，就会有问题看如下例子:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> math = <span class="title function_">requite</span>(<span class="string">&#x27;math&#x27;</span>)</span><br><span class="line">math.<span class="title function_">add</span>(<span class="number">2</span>, <span class="number">3</span>); </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">因为common.js是运行时加载，所以必须是先加载math模块进行， 然后再调用具体方法，这在同步时候没有问题，但是在前端，加载文件时异步的	所以这就会报错，所以后面就有人提出amd(异步模块定义)规范 </span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1、-定义"><a href="#1、-定义" class="headerlink" title="1、 定义"></a>1、 定义</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// math.js</span></span><br><span class="line"><span class="title function_">define</span>(<span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> add = <span class="keyword">function</span> (<span class="params">x,y</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">add</span>: add 　　　　</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、-引用"><a href="#2、-引用" class="headerlink" title="2、 引用"></a>2、 引用</h3><p>  AMD也采用require()语句加载模块，但是不同于CommonJS，它要求两个参数：require([module], callback);</p>
-<p>  如： </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">&#x27;math&#x27;</span>], <span class="keyword">function</span> (<span class="params">math</span>) &#123;</span><br><span class="line">  math.<span class="title function_">add</span>(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="三、ES6模块化"><a href="#三、ES6模块化" class="headerlink" title="三、ES6模块化"></a>三、ES6模块化</h2><blockquote>
-<p> <a class="link"   target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/module" >http://es6.ruanyifeng.com/#docs/module<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-<p>因为前端模块化非常重要，所以ES6把模块化纳入了规范 并且这与前两者最大的区别是它是编译时加载  前面两者都是运行时加载</p>
-<h3 id="1、定义-1"><a href="#1、定义-1" class="headerlink" title="1、定义"></a>1、定义</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">const</span> a =<span class="number">1</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span> () &#123;&#125;</span><br><span class="line"><span class="keyword">export</span> &#123;a, add&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、引用-1"><a href="#2、引用-1" class="headerlink" title="2、引用"></a>2、引用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;a, add&#125; <span class="keyword">from</span> <span class="string">&#x27;main.js&#x27;</span></span><br></pre></td></tr></table></figure>
+                <h1 id="计算两个坐标点经纬度之间的距离"><a href="#计算两个坐标点经纬度之间的距离" class="headerlink" title="计算两个坐标点经纬度之间的距离"></a>计算两个坐标点经纬度之间的距离</h1><p>根据两个定位点的经纬度计算两点间距离</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算两点之间的距离</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; lat1 纬度1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; lng1 经度1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; lat2 纬度2</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; lng2 经度2</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">string</span>&#125; 返回距离(大于等于1000返回xxx千米，否则返回xxx米)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getDistance</span>(<span class="params">lat1, lng1, lat2, lng2</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> radLat1 = lat1 * <span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">180.0</span>;</span><br><span class="line">    <span class="keyword">const</span> radLat2 = lat2 * <span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">180.0</span>;</span><br><span class="line">    <span class="keyword">const</span> a = radLat1 - radLat2;</span><br><span class="line">    <span class="keyword">const</span> b = lng1 * <span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">180.0</span> - lng2 * <span class="title class_">Math</span>.<span class="property">PI</span> / <span class="number">180.0</span>;</span><br><span class="line">    <span class="keyword">let</span> s = <span class="number">2</span> * <span class="title class_">Math</span>.<span class="title function_">asin</span>(<span class="title class_">Math</span>.<span class="title function_">sqrt</span>(<span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="title class_">Math</span>.<span class="title function_">sin</span>(a / <span class="number">2</span>), <span class="number">2</span>)</span><br><span class="line">    + <span class="title class_">Math</span>.<span class="title function_">cos</span>(radLat1) * <span class="title class_">Math</span>.<span class="title function_">cos</span>(radLat2) * <span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="title class_">Math</span>.<span class="title function_">sin</span>(b / <span class="number">2</span>), <span class="number">2</span>)));</span><br><span class="line">    s = s * <span class="number">6378.137</span>;</span><br><span class="line">    s = <span class="title class_">Math</span>.<span class="title function_">round</span>(s * <span class="number">10000</span>) / <span class="number">10000</span>;</span><br><span class="line">    s = (s &lt; <span class="number">1</span> ? <span class="title class_">Math</span>.<span class="title function_">floor</span>(s * <span class="number">1000</span>) + <span class="string">&#x27;m&#x27;</span> : s.<span class="title function_">toFixed</span>(<span class="number">1</span>) + <span class="string">&#x27;km&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> getDistance;</span><br></pre></td></tr></table></figure>
 
             </div>
 
@@ -235,7 +205,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">#模块化</a>&nbsp;
+                            <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -247,18 +217,33 @@
                         <div class="article-prev">
                             <a class="prev"
                                rel="prev"
-                               href="/2022/02/02/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"
+                               href="/2023/02/08/vue3%E7%AC%94%E8%AE%B0-%E7%BB%84%E5%90%88%E5%BC%8Fapi%E5%A3%B0%E6%98%8E%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8F%98%E9%87%8F/"
                             >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                                 <span class="title flex-center">
-                                <span class="post-nav-title-item">前端常见跨域解决方案</span>
+                                <span class="post-nav-title-item">vue3笔记-组合式api声明响应式变量</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                             </a>
                         </div>
                     
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2022/02/02/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">前端常见跨域解决方案</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
                     
                 </div>
             

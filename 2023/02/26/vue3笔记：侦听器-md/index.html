@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="记录和分享一些编码小知识~">
+    <meta name="author" content="lsyana">
+    
+    <title>
+        
+            vue3笔记：侦听器.md |
+        
+        lsyana&#39;s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"lsyana.github.io","root":"/","language":"zh-Hans"}
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066cc","logo":"/images/avatar.png","favicon":"/images/avatar.png","avatar":"/images/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"header_transparent":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving.","font_color":null,"hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":false,"wordcount":false,"min2read":false},"img_align":"left","copyright_info":false},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/avatar.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               lsyana&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">vue3笔记：侦听器.md</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">lsyana</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-02-26 23:10:21</span>
+        <span class="mobile">2023-02-26 23:10</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-02-26 23:11:21</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/vue3/">vue3</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="vue3笔记：侦听器"><a href="#vue3笔记：侦听器" class="headerlink" title="vue3笔记：侦听器"></a>vue3笔记：侦听器</h1><p><code>watch</code> 的第一个参数可以是不同形式的“数据源”：它可以是一个 ref (包括计算属性)、一个响应式对象、一个 <code>getter</code> 函数、或多个数据源组成的数组。</p>
+<h2 id="watch"><a href="#watch" class="headerlink" title="watch()"></a>watch()</h2><h3 id="侦听一个ref、计算属性、getter-函数"><a href="#侦听一个ref、计算属性、getter-函数" class="headerlink" title="侦听一个ref、计算属性、getter 函数"></a>侦听一个<code>ref</code>、计算属性、<code>getter</code> 函数</h3><p><code>watch(ref变量, (newValue, oldValue) =&gt; &#123;&#125;)</code>。当<code>ref</code>值发生变化时会触发相应的回调（回调中可进行异步操作）。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; ref, watch &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> count = ref&lt;number&gt;(<span class="number">0</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> double = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> count.<span class="property">value</span> * <span class="number">2</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> obj = <span class="title function_">reactive</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">count</span>: <span class="number">0</span>,</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 1. 可以单个侦听</span></span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(count, <span class="keyword">async</span> (newVal, oldVal) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">try</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;https://yesno.wtf/api&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;res...&quot;</span>, res);</span></span><br><span class="line"><span class="language-javascript">  &#125; <span class="keyword">catch</span> (error) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error...&quot;</span>, error);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(double, <span class="keyword">async</span> (newVal, oldVal) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;double变化了...&quot;</span>, newVal, oldVal);</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(<span class="function">() =&gt;</span> obj.<span class="property">count</span>, <span class="keyword">async</span> (newVal, oldVal) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;obj.count变化了...&quot;</span>, newVal, oldVal);</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 2. 可以写在一个watch里，然后通过判断对应下标的新旧值变化分别执行不同操作</span></span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>([count, double, <span class="function">() =&gt;</span> obj.<span class="property">count</span>], <span class="keyword">async</span> (newVal, oldVal) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 判断count变化</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (newVal[<span class="number">0</span>] !== oldVal[<span class="number">0</span>]) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;count变化了...&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 判断double是否变化</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (newVal[<span class="number">1</span>] !== oldVal[<span class="number">1</span>]) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;double变化了...&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 判断obj.count变化了</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (newVal[<span class="number">2</span>] !== oldVal[<span class="number">2</span>]) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;obj.count变化了...&quot;</span>, newVal[<span class="number">2</span>], oldVal[<span class="number">2</span>]);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 3. 或者写在一个watch里，然后通过解构的方法拿到对应的新旧值</span></span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(</span></span><br><span class="line"><span class="language-javascript">  [count, double, <span class="function">() =&gt;</span> obj.<span class="property">count</span>],</span></span><br><span class="line"><span class="language-javascript">  <span class="function">(<span class="params">[newCount, newDouble, newObjCount], [oldCount, oldDouble, oldObjCount]</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(newCount, newDouble, newObjCount);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(oldCount, oldDouble, oldObjCount);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="侦听一个reactive"><a href="#侦听一个reactive" class="headerlink" title="侦听一个reactive"></a>侦听一个<code>reactive</code></h3><ol>
+<li>默认隐式创建一个深层侦听器</li>
+</ol>
+<p>直接给 watch() 传入一个响应式对象，会隐式地创建一个深层侦听器——该回调函数在所有嵌套的变更时都会被触发：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; reactive, watch &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> obj = <span class="title function_">reactive</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">count</span>: <span class="number">10</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">someObject</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">count</span>: <span class="number">20</span>,</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> increceCount = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// obj底下任何key值被修改都会触发watch</span></span></span><br><span class="line"><span class="language-javascript">  obj.<span class="property">someObject</span>.<span class="property">count</span>++;</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(</span></span><br><span class="line"><span class="language-javascript">  obj,</span></span><br><span class="line"><span class="language-javascript">  <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;obj变化了...&quot;</span>, newValue, oldValue);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>一个返回响应式对象的 getter 函数，只有在返回不同的对象时，才会触发回调：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; reactive, watch &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> obj = <span class="title function_">reactive</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">count</span>: <span class="number">10</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">someObject</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">count</span>: <span class="number">20</span>,</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> increceCount = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 1. 只有当obj.someObject被替换时才会触发watch</span></span></span><br><span class="line"><span class="language-javascript">  obj.<span class="property">someObject</span> = &#123; ...obj.<span class="property">someObject</span> &#125;;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 2. 像这种直接修改某个key值的不会触发watch</span></span></span><br><span class="line"><span class="language-javascript">  obj.<span class="property">someObject</span>.<span class="property">count</span>++;</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(</span></span><br><span class="line"><span class="language-javascript">  <span class="function">() =&gt;</span> obj.<span class="property">someObject</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;obj变化了...&quot;</span>, newValue, oldValue);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>显性创建一个深层侦听器</li>
+</ol>
+<p>传入第三个参数加上 <code>deep</code> 选项，强制转成深层侦听器：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; reactive, watch &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> obj = <span class="title function_">reactive</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">count</span>: <span class="number">10</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">someObject</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">count</span>: <span class="number">20</span>,</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> increceCount = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 直接修改某个key值的会触发watch</span></span></span><br><span class="line"><span class="language-javascript">  obj.<span class="property">someObject</span>.<span class="property">count</span>++;</span></span><br><span class="line"><span class="language-javascript">&#125;;</span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(</span></span><br><span class="line"><span class="language-javascript">  <span class="function">() =&gt;</span> obj.<span class="property">someObject</span>,</span></span><br><span class="line"><span class="language-javascript">  <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;obj变化了...&quot;</span>, newValue, oldValue);</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript">  &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">deep</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// immediate 为 true 立即执行，且当 obj.someObject 改变时再次执行</span></span></span><br><span class="line"><span class="language-javascript">    <span class="attr">immediate</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：当用于大型数据结构时，开销很大。因此请只在必要时才使用它，并且要留意性能。</p>
+<h2 id="watchEffect"><a href="#watchEffect" class="headerlink" title="watchEffect()"></a>watchEffect()</h2><p>回调函数里面执行一些异步操作（副作用逻辑）时，可以省略第一个参数，第一个 <code>await</code> 使用过程及其之前用到的所有响应式变量发生变化都会被触发。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> count = ref&lt;number&gt;(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">const</span> name = ref&lt;string&gt;(<span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> age = ref&lt;number&gt;(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">const</span> obj = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">  <span class="attr">count</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">someObject</span>: &#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">20</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> increceCount = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  count.<span class="property">value</span>++;</span><br><span class="line">  <span class="comment">// 只改变obj深层的变量，await及其之前没有使用到someObject的内容，watchEffect回调不会被触发（浅层监听）</span></span><br><span class="line">  <span class="comment">// 包括直接使用obj，obj.someObject，使用obj.someObject.count则可以监听到</span></span><br><span class="line">  obj.<span class="property">someObject</span>.<span class="property">count</span>++;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">watchEffect</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// count name obj.count 变化都会触发watchEffect回调</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count.<span class="property">value</span>); </span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(</span><br><span class="line">    <span class="string">`https://yesno.wtf/api?count=<span class="subst">$&#123;obj.count&#125;</span>&amp;name=<span class="subst">$&#123;name.value&#125;</span>`</span></span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// age变化不会触发回调</span></span><br><span class="line">  age.<span class="property">value</span>++;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;watchEffect res1...&quot;</span>, res, age.<span class="property">value</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="watchPostEffect-和-watchSyncEffect"><a href="#watchPostEffect-和-watchSyncEffect" class="headerlink" title="watchPostEffect() 和 watchSyncEffect()"></a>watchPostEffect() 和 watchSyncEffect()</h2><p><code>watch</code> 的第三个参数，以及 <code>watchEffect</code> 的第二个参数里面都可以添加相应的配置实现 <code>watchPostEffect()</code> 和 <code>watchSyncEffect()</code>，也可以说 <code>watchPostEffect()</code> 和 <code>watchSyncEffect()</code> 是 <code>watch</code> 和 <code>watchEffect</code> 添加不同参数之后的简写。</p>
+<ol>
+<li><code>watchPostEffect()</code></li>
+</ol>
+<p>相当于传入 <code>flush: &#39;post&#39;</code>，可以在 <code>watch</code> 和 <code>watchEffect</code> 回调中获取到更新之后的 <code>dom</code>，也就是回调会在 <code>dom</code> 更新之后执行（默认在 <code>dom</code> 更新之前执行，也就是 <code>flush: &#39;pre&#39;</code> 。<a class="link"   target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-core.html#watch:~:text=%E6%97%B6%E7%9A%84%E5%88%AB%E5%90%8D%E3%80%82-,watch(),-%23" >参数说明传送门<i class="fas fa-external-link-alt"></i></a>）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">watch</span>(source, callback, &#123;</span><br><span class="line">  <span class="attr">flush</span>: <span class="string">&#x27;post&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title function_">watchEffect</span>(callback, &#123;</span><br><span class="line">  <span class="attr">flush</span>: <span class="string">&#x27;post&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>watchSyncEffect()</code></li>
+</ol>
+<p>使用 <code>flush: &#39;sync&#39;</code> 选项时的别名（文档中没有说明具体是啥，<code>dom</code> 更新和回调同步执行？？）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">watch</span>(source, callback, &#123;</span><br><span class="line">  <span class="attr">flush</span>: <span class="string">&#x27;sync&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title function_">watchEffect</span>(callback, &#123;</span><br><span class="line">  <span class="attr">flush</span>: <span class="string">&#x27;sync&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><a class="link"   target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/watchers.html#callback-flush-timing" >侦听器传送门<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/vue3/">#vue3</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/02/26/vue3%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9Av-model/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">vue3笔记：双向绑定v-model</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">lsyana</a>
+            
+        </div>
+        
+        <!-- <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div> -->
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+        
+    
+</div>
+
+
+
+</body>
+</html>
