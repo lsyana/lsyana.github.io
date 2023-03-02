@@ -9,7 +9,7 @@
     
     <title>
         
-            vue3笔记-响应式基础 |
+            JS笔记：执行上下文和执行栈 |
         
         lsyana&#39;s blog
     </title>
@@ -135,7 +135,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">vue3笔记-响应式基础</span>
+                <span class="title-hover-animation">JS笔记：执行上下文和执行栈</span>
             </div>
 
             
@@ -157,13 +157,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-02-22 00:29:14</span>
-        <span class="mobile">2023-02-22 00:29</span>
+        <span class="pc">2021-02-10 22:24:15</span>
+        <span class="mobile">2021-02-10 22:24</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-02-22 00:31:22</span>
+        <span class="pc">2023-03-02 22:28:31</span>
     </span>
     
     
@@ -173,7 +173,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/vue3/">vue3</a>&nbsp;
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -194,23 +194,39 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="响应式基础"><a href="#响应式基础" class="headerlink" title="响应式基础"></a>响应式基础</h1><h2 id="默认深层响应"><a href="#默认深层响应" class="headerlink" title="默认深层响应"></a>默认深层响应</h2><p>即使在更改深层次的对象或数组，改动也能被检测到。也就是说，我们可以直接通过下标修改数组的值或者修改对象的某个<code>key</code>的<code>value</code>，页面也能同步更新了。</p>
-<h2 id="自己创一个浅层响应对象"><a href="#自己创一个浅层响应对象" class="headerlink" title="自己创一个浅层响应对象"></a>自己创一个浅层响应对象</h2><p>可以通过<code>shallowReactive()</code>声明一个浅层响应对象。也就是把<code>reactive</code>换成了<code>shallowReactive</code>，例如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个深层响应式变量（默认这么写）</span></span><br><span class="line"><span class="keyword">const</span> deep = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;lsyana deep&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">    <span class="attr">parent</span>: &#123;</span><br><span class="line">        <span class="attr">age</span>: <span class="number">50</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">deep.<span class="property">age</span>++;<span class="comment">// 可以更新</span></span><br><span class="line">deep.<span class="property">parent</span>.<span class="property">age</span>++;<span class="comment">// 可以更新</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个浅层响应式变量（特殊情况自定义）</span></span><br><span class="line"><span class="keyword">const</span> shallow = <span class="title function_">shallowReactive</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;lsyana shallow&quot;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">    <span class="attr">parent</span>: &#123;</span><br><span class="line">        <span class="attr">age</span>: <span class="number">45</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 这里需要注意，同时执行shallow.age++和shallow.parent.age++，shallow.age和shallow.parent.age都能响应式变化</span></span><br><span class="line">shallow.<span class="property">age</span>++;<span class="comment">// 可以更新</span></span><br><span class="line">shallow.<span class="property">parent</span>.<span class="property">age</span>++;<span class="comment">// 不可以更新</span></span><br></pre></td></tr></table></figure>
+                <h1 id="JS笔记：执行上下文和执行栈"><a href="#JS笔记：执行上下文和执行栈" class="headerlink" title="JS笔记：执行上下文和执行栈"></a>JS笔记：执行上下文和执行栈</h1><h2 id="一、执行上下文"><a href="#一、执行上下文" class="headerlink" title="一、执行上下文"></a>一、执行上下文</h2><h3 id="1、什么是执行上下文？"><a href="#1、什么是执行上下文？" class="headerlink" title="1、什么是执行上下文？"></a>1、什么是执行上下文？</h3><p>执行上下文也就是 <code>JavaScript</code> 代码的执行环境，所有的 <code>JavaScript</code> 代码都是在执行上下文中运行的。</p>
+<h3 id="2、三种执行上下文"><a href="#2、三种执行上下文" class="headerlink" title="2、三种执行上下文"></a>2、三种执行上下文</h3><p><code>JavaScript</code> 中执行上下文有<strong>三种</strong>类型</p>
+<p><strong>全局执行上下文</strong></p>
+<p>任何不在函数内部的代码都在全局上下文中，一个程序中<strong>只会有一个</strong>全局执行上下文。</p>
+<p>它会执行两件事：</p>
+<ol>
+<li>创建一个全局的 window 对象（浏览器的情况下）</li>
+<li>设置 this 的值等于这个全局对象</li>
+</ol>
+<p><strong>函数执行上下文</strong></p>
+<p>一个函数被调用时创建的函数自己的执行上下文，可以有<strong>任意多个</strong>。</p>
+<p><strong>Eval 函数执行上下文</strong></p>
+<p>运行在 <code>Eval</code> 函数内部的代码自己的执行上下文（用得不多不用多管）。</p>
+<h3 id="创建一个执行上下文"><a href="#创建一个执行上下文" class="headerlink" title="创建一个执行上下文"></a>创建一个执行上下文</h3><p>两个阶段：</p>
+<p><strong>创建阶段</strong></p>
+<ol>
+<li>绑定 <code>this</code></li>
+</ol>
+<ul>
+<li><p>全局执行上下文中 <code>this</code> 指向全局对象（浏览器环境中指向 <code>Window</code> 对象）.</p>
+</li>
+<li><p>函数执行上下文中，取决于函数怎么调用。如果函数被引用对象调用，<code>this</code> 指向调用它的引用对象，否则指向全局对象（严格模式下指向<code>undefined</code>）</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &quot;use strict&quot;;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> person = &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">getName</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    person.<span class="title function_">getName</span>();<span class="comment">// this 打印 person 对象</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> &#123;getName&#125; = person;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">getName</span>();<span class="comment">// 没有注释 &quot;use strict&quot; 时打印 undefined ，注释则打印 Window 对象</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>这里需要注意：同时执行<code>shallow.age++</code>和<code>shallow.parent.age++</code>，<code>shallow.age</code>和<code>shallow.parent.age</code>都能响应式变化，对应页面可更新，只执行<code>shallow.parent.age++</code>对应<code>shallow.parent.age</code>不是响应式的，对应页面不更新。</p>
-<p>不知道为啥？</p>
-<p>别人说是因为调用<code>shallow.age++</code>的时候触发了渲染函数，然后把页面也跟着更新了，回头去验证下</p>
-<h2 id="响应式语法糖"><a href="#响应式语法糖" class="headerlink" title="响应式语法糖"></a>响应式语法糖</h2><h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><p>例如：我们使用<code>ref()</code>直接声明的变量，在<code>js</code>中使用时需要获取<code>.value</code>进行操作，我们可以使用<code>$ref()</code>（vue3响应式语法糖）去声明一个响应式变量，就可以在<code>js</code>中直接对变量进行操作，无需<code>.value</code>进行取值</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; $ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue/macros&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> counter = <span class="title function_">ref</span>(<span class="number">0</span>)</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">let</span> count = $ref(<span class="number">0</span>)</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">incrementCounter</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 需 .value</span></span></span><br><span class="line"><span class="language-javascript">  count.<span class="property">value</span>++</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 无需 .value</span></span></span><br><span class="line"><span class="language-javascript">  count++</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;incrementCounter&quot;</span>&gt;</span>&#123;&#123; counter &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;increment&quot;</span>&gt;</span>&#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="ts中使用响应式语法糖"><a href="#ts中使用响应式语法糖" class="headerlink" title="ts中使用响应式语法糖"></a>ts中使用响应式语法糖</h3><p>1、安装<code>@vitejs/plugin-vue@&gt;=2.0.0</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add @vitejs/plugin-vue -D</span><br></pre></td></tr></table></figure>
-
-<p>2、在<code>vite.config.ts</code>中添加配置：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">vue</span>(&#123;</span><br><span class="line">      <span class="attr">reactivityTransform</span>: <span class="literal">true</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
-
-<p>3、然后像例子上那样引入使用就可以了</p>
+<ol start="2">
+<li><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6844903682283143181#heading-7" >创建词法环境组件<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6844903682283143181#heading-8" >创建变量环境组件<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+<p><strong>执行阶段</strong><br>完成对所有变量的分配，执行代码</p>
+<h2 id="二、执行栈（执行上下文栈）"><a href="#二、执行栈（执行上下文栈）" class="headerlink" title="二、执行栈（执行上下文栈）"></a>二、执行栈（<a class="link"   target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/4" >执行上下文栈<i class="fas fa-external-link-alt"></i></a>）</h2><p>执行栈也叫调用栈，用来存放代码运行时创建的所有上下文。</p>
+<p>全局执行上下文先入栈，从上往下看代码，遇到函数调用函数执行上下文逐个入栈，后入栈的先执行完毕出栈。</p>
 
             </div>
 
@@ -220,7 +236,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/vue3/">#vue3</a>&nbsp;
+                            <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -232,13 +248,13 @@
                         <div class="article-prev">
                             <a class="prev"
                                rel="prev"
-                               href="/2023/02/22/vue3%E7%AC%94%E8%AE%B0-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/"
+                               href="/2022/02/02/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"
                             >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                                 <span class="title flex-center">
-                                <span class="post-nav-title-item">vue3笔记-计算属性</span>
+                                <span class="post-nav-title-item">前端常见跨域解决方案</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                             </a>
@@ -248,10 +264,10 @@
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/02/08/vue3%E7%AC%94%E8%AE%B0-%E7%BB%84%E5%90%88%E5%BC%8Fapi%E5%A3%B0%E6%98%8E%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8F%98%E9%87%8F/"
+                               href="/2021/02/03/%E6%A8%A1%E5%9D%97%E5%8C%96/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">vue3笔记-组合式api声明响应式变量</span>
+                                <span class="post-nav-title-item">模块化</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
